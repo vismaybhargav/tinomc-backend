@@ -8,6 +8,10 @@ if (!RCON_HOST || !RCON_PASSWORD) {
 
 const app = new Hono()
 
+app.get('/api', async (c) => {
+	return c.text("OK");
+})
+
 app.post('/api/rcon', async (c) => {
 	const { command } = await c.req.json()
 	if (typeof command !== 'string') {

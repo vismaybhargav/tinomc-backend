@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "run": "bun run src/server.ts",
-    "serve": "bun run --watch src/server.ts"
+    "serve": "bun --watch src/server.ts"
   },
   "keywords": [],
   "author": "",
