@@ -12,7 +12,7 @@ if (!RCON_HOST || !RCON_PASSWORD) {
 const app = new Hono()
 
 app.use("*", cors({
-  origin: process.env.NODE_ENV === "dev" ? 'http://localhost:3000' : "http://vercel.com",       // or '*' for public APIs
+  origin: "*",// process.env.NODE_ENV === "dev" ? 'http://localhost:3000' : "http://vercel.com",       // or '*' for public APIs
   allowMethods: ['GET', 'POST'],
   allowHeaders: ['Content-Type', 'Authorization'],
   credentials: true
