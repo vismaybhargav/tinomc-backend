@@ -1,25 +1,19 @@
 {
-  "name": "tinomc-backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "my-app",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "bun run src/server.ts",
-    "serve": "bun --watch src/server.ts"
+    "start": "bun run src/index.ts",
+    "dev": "bun run --hot src/index.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.13.1",
   "dependencies": {
     "hono": "^4.8.5",
     "rcon-client": "^4.2.5"
   },
-  "private": true,
   "devDependencies": {
-    "@types/bun": "^1.2.18"
+    "@types/bun": "latest"
   },
+  "module": "src/index.ts",
+  "type": "module",
+  "private": true,
   "peerDependencies": {
     "typescript": "^5"
   }
