@@ -1,11 +1,11 @@
 FROM oven/bun:latest AS base
-RUN apk add --no-cache git wget
+# RUN apk add --no-cache git wget
 
 WORKDIR /app
 
 COPY package.json bun.lock ./
 # Make sure these files are present before installing
-RUN bun install --frozen-lockfile
+RUN bun install --frozen-lockfile --production
 
 # Now copy the rest of your source code
 COPY . .
