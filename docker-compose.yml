@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SOURCE_COMMIT: ${SOURCE_COMMIT}
+    image: my-backend:${SOURCE_COMMIT:-latest}
+    user: bun
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      # RCON settings for talking to your MC container on the 'mc' network:
+      RCON_HOST: ${RCON_HOST}   # replace with your real MC container name
+      RCON_PORT: 25575
+      RCON_PASSWORD: ${RCON_PASSWORD}
+    networks:
+      - mc
+
+networks:
+  mc:
+    external: true
+
