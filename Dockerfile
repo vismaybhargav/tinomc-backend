@@ -3,7 +3,7 @@ RUN apk add --no-cache git wget
 
 WORKDIR /app
 
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 # Make sure these files are present before installing
 RUN bun install --frozen-lockfile
 
