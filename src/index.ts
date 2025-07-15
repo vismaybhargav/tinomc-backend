@@ -1,7 +1,9 @@
-import { Hono } from 'hono'                     // ultra‑light router :contentReference[oaicite:0]{index=0}
-import { Rcon } from 'rcon-client'              // modern MC RCON client :contentReference[oaicite:1]{index=1}
+import { Hono } from 'hono'
+import { Rcon, Game } from 'rcon-node'
+const { RCON_HOST, RCON_PASSWORD } = process.env
 
-const { RCON_HOST, RCON_PORT = '25575', RCON_PASSWORD } = process.env
+const RCON_PORT = process.env.RCON_PORT ? Number(process.env.RCON_PORT) : 25575;
+
 if (!RCON_HOST || !RCON_PASSWORD) {
   throw new Error('Missing RCON_* env vars')
 }
@@ -18,13 +20,16 @@ app.post('/api/rcon', async (c) => {
     return c.json({ error: '`command` must be a string' }, 400)
   }
 
-  const rcon = await Rcon.connect({
+  const rconConnection = await Rcon.connect({
     host: RCON_HOST,
-    port: Number(RCON_PORT),
+    port: RCON_PORT,
     password: RCON_PASSWORD,
+    game: Game.MINECRAFT,
   })
-  const reply = await rcon.send(command)
-  await rcon.end()
+
+  const reply = await rconConnection.send(command)
+
+  rconConnection.end();
 
   return c.json({ ok: true, reply })
 })
