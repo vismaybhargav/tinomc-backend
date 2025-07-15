@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { Rcon, Game } from 'rcon-node'
+import { cors } from 'hono/cors';
 const { RCON_HOST, RCON_PASSWORD } = process.env
 
 const RCON_PORT = process.env.RCON_PORT ? Number(process.env.RCON_PORT) : 25575;
@@ -9,6 +10,13 @@ if (!RCON_HOST || !RCON_PASSWORD) {
 }
 
 const app = new Hono()
+
+app.use("*", cors({
+  origin: process.env.NODE_ENV === "dev" ? 'http://localhost:3000' : "http://vercel.com",       // or '*' for public APIs
+  allowMethods: ['GET', 'POST'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}))
 
 app.get('/api', async (c) => {
   return c.text("OK");
