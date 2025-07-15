@@ -1,6 +1,0 @@
-ktor:
-    application:
-        modules:
-            - org.vismayb.ApplicationKt.module
-    deployment:
-        port: 3000
