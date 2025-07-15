@@ -30,15 +30,13 @@ app.get('/api', (c) => {
 app.get('api/server-status', async (c) => {
   const ac = new AbortController();
 
-   try {
-    const res = await fetch("http://192.168.6.186:25565", {
-      method: "HEAD",
-      cache: "no-cache",
-      signal: ac.signal
-    });
-    
-    res.ok ? c.json({ status: "online" }) : c.json({ status: "offline" });
-   }
+  const res = await fetch("http://192.168.6.186:25565", {
+    method: "HEAD",
+    cache: "no-cache",
+    signal: ac.signal
+  });
+
+  res.ok ? c.json({ status: "online" }) : c.json({ status: "offline" });
 });
 
 app.post('/api/rcon', async (c) => {
