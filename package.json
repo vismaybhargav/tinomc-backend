@@ -15,5 +15,12 @@
   "dependencies": {
     "hono": "^4.8.5",
     "rcon-client": "^4.2.5"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "^1.2.18"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }
