@@ -9,7 +9,7 @@
     <description>tinomc-backend</description>
     <properties>
         <kotlin.code.style>official</kotlin.code.style>
-        <kotlin_version>2.1.10</kotlin_version>
+        <kotlin_version>2.1.21</kotlin_version>
         <ktor_version>3.2.1</ktor_version>
         <logback_version>1.4.14</logback_version>
         <slf4j_version>2.0.9</slf4j_version>
@@ -74,7 +74,7 @@
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test-junit</artifactId>
-            <version>${kotlin_version}</version>
+            <version>2.1.10</version>
             <scope>test</scope>
         </dependency>
         <dependency>

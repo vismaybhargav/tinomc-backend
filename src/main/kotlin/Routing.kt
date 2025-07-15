@@ -19,9 +19,9 @@ fun Application.configureRouting() {
             post {
                 try {
                     val command = call.receive<Command>()
-
+                    val output = ServerUtil.sendCommand(command)
                     // Process the command here
-                    call.respondText("Command received: ${command.content}", ContentType.Text.Plain)
+                    call.respondText(output, ContentType.Text.Plain)
                 } catch (e: Exception) {
                     call.respondText("Error processing command: ${e.message}", ContentType.Text.Plain, HttpStatusCode.BadRequest)
                 }
