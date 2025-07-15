@@ -16,6 +16,10 @@ import org.vismayb.mc.ServerUtil
 fun Application.configureRouting() {
     routing {
         route("/command") {
+            get {
+                call.respondText("Hello, this is the command endpoint!", ContentType.Text.Plain)
+            }
+
             post {
                 try {
                     val command = call.receive<Command>()
