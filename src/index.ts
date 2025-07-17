@@ -48,8 +48,6 @@ app.post('/api/rcon', async (c) => {
 
   const reply = await rconConnection.send(command);
 
-  rconConnection.end();
-
   return c.json({ ok: true, reply });
 });
 
