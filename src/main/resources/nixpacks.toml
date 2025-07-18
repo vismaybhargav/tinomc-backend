@@ -1,0 +1,2 @@
+[start]
+cmd = "java -Dio.ktor.deployment=${PORT} -port=${PORT} -jar target/*jar"
