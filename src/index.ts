@@ -1,10 +1,12 @@
 import { Hono } from 'hono'
 import { Rcon, Game } from 'rcon-node'
 import { cors } from 'hono/cors';
-const { RCON_HOST, RCON_PASSWORD, RCON_PORT } = process.env
+import path from 'path'
+import { spawn } from 'bun';
+const { RCON_HOST, RCON_PASSWORD, RCON_PORT, HOST_IP } = process.env
 
-if (!RCON_HOST || !RCON_PASSWORD || !RCON_PORT) {
-  throw new Error('Missing RCON_* env vars');
+if (!RCON_HOST || !RCON_PASSWORD || !RCON_PORT || !HOST_IP) {
+  throw new Error('Ensure all environment variables are set: RCON_HOST, RCON_PASSWORD, RCON_PORT, HOST_IP');
 }
 
 const app = new Hono();
@@ -30,7 +32,7 @@ app.get('/api', (c) => {
 app.get('api/server-status', async (c) => {
   const ac = new AbortController();
 
-  const res = await fetch("http://192.168.6.186:25565", {
+  const res = await fetch(`http://${HOST_IP}`, {
     method: "HEAD",
     cache: "no-cache",
     signal: ac.signal
@@ -50,6 +52,24 @@ app.post('/api/rcon', async (c) => {
 
   return c.json({ ok: true, reply });
 });
+
+app.get('/api/mods', (c) => {
+  const modsDir = path.resolve('C:', 'Users', 'Administrator', 'AppData', 'Roaming', '.minecraft', 'mods');
+  const tar = spawn({
+      cmd: ['tar', '-C', modsDir, '-czf', '-', '.'],
+      stdout: 'pipe',
+      stderr: 'inherit', 
+    }
+  );
+
+  const headers = new Headers({
+    'Content-Type': 'application/gzip',
+    'Content-Disposition': 'attachment; filename="mods.tar.gz"',
+  });
+
+  return new Response(tar.stdout, { status: 200, headers });
+});
+
 
 process.on("exit", (code) => {
   rconConnection.end();
